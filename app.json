@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "boilerplate-expo-ts",
+    "slug": "boilerplate-expo-ts",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "boilerplate-expo-ts"
+}
