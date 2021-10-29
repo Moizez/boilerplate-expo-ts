@@ -5,7 +5,8 @@ const types = {
     SAVE_USER: '@app/SAVE_USER',
     SET_FORM: '@app/SET_FORM',
     GET_HOME: '@app/GET_HOME',
-    RESET: '@app/RESET'
+    RESET: '@app/RESET',
+    SIGN_OUT: '@app/SIGN_OUT'
 }
 
 export default types

@@ -1,17 +1,10 @@
 import types from "../../types";
 
-export function signInUser() {
+export function signInRequest() {
     return { type: types.SIGNIN_USER }
 }
 
-export function setUser(payload: Object) {
-    return { type: types.SET_USER, payload }
+export function signOutRequest() {
+    return { type: types.SIGN_OUT }
 }
 
-export function setForm(payload: Object) {
-    return { type: types.SET_FORM, payload };
-}
-
-export function reset(key: String) {
-    return { type: types.RESET, key }
-}
