@@ -1,7 +1,8 @@
 import produce from "immer";
 import types from "../../types";
+import { TUser} from '../../../utils/types'
 
-const INITIAL_STATE = {
+const INITIAL_STATE: TUser = {
     user: {},
     userForm: {},
     form: {
