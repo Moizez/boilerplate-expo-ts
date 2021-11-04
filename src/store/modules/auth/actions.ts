@@ -3,14 +3,17 @@ import types from "./types";
 export function signInRequest(payload: any) {
     return {
         type: types.SIGN_IN_REQUEST,
-        payload
+        payload: {
+            email: payload.email,
+            password: payload.password
+        }
     }
 }
 
-export function signInSuccess(payload: any) {
+export function signInSuccess(token: string, user: Object) {
     return {
         type: types.SIGN_IN_SUCCESS,
-        payload
+        payload: { token, user }
     }
 }
 

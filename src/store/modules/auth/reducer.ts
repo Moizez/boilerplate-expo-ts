@@ -8,6 +8,7 @@ const INITIAL_STATE: TAuth = {
     loading: false
 }
 
+
 function auth(state = INITIAL_STATE, action: any) {
 
     return produce(state, draft => {
@@ -15,42 +16,43 @@ function auth(state = INITIAL_STATE, action: any) {
         switch (action.type) {
             case types.SIGN_IN_REQUEST: {
                 draft.loading = true
-                break
+                return draft
             }
 
             case types.SIGN_IN_SUCCESS: {
                 draft.token = action.payload.token
                 draft.signed = true
                 draft.loading = false
-                break
+                console.log('DRAFT: ', draft)
+                return draft
             }
 
             case types.SIGN_UP_REQUEST: {
                 draft.loading = true
-                break
+                return draft
             }
 
             case types.SIGN_UP_SUCCESS: {
                 draft.token = action.payload.token
                 draft.signed = true
                 draft.loading = false
-                break
+                return draft
             }
 
             case types.SIGN_IN_FAILURE: {
                 draft.loading = false
-                break
+                return draft
             }
 
             case types.SIGN_OUT: {
                 draft.token = null
                 draft.signed = false
                 draft.loading = false
-                break
+                return draft
             }
 
             default:
-                break;
+                return draft
         }
 
     })
