@@ -6,10 +6,10 @@ export interface TAuth {
 
 export interface TUser {
 	user: Object,
-	userForm: Object,
-	form: {
-		disabled: boolean,
-		loading: boolean,
-		saving: boolean
-	}
+	loading: boolean
+}
+
+export interface GlobalState {
+	auth: TAuth,
+	user: TUser
 }

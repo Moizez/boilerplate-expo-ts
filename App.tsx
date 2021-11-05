@@ -1,33 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components/native';
-import { StyleSheet, Text, View } from 'react-native';
 import SplashScreen from './src/components/SplashScreen';
+import { PersistGate } from 'redux-persist/integration/react'
 
 import { Provider as PaperProvider } from 'react-native-paper'
 import { Provider as StoreProvider } from 'react-redux'
-import store from './src/store'
+import { store, persistor } from './src/store'
 import { colors } from './src/styles/theme.json'
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 
-import SignIn from './src/screens/SignIn';
+import Routes from './src/routes';
 
 const App = () => {
+
+	const [wait, setWait] = useState(false)
 
 	let [fontsLoaded] = useFonts({
 		Inter_900Black,
 	});
 
-	if (!fontsLoaded) {
+	setTimeout(() => {
+		setWait(true)
+	}, 2000);
+
+	if (!fontsLoaded || !wait) {
 		return <SplashScreen />;
 	} else {
 		return (
 			<StoreProvider store={store}>
-				<ThemeProvider theme={colors}>
-					<PaperProvider>
-						<SignIn />
-					</PaperProvider>
-				</ThemeProvider>
+				<PersistGate loading={null} persistor={persistor}>
+					<ThemeProvider theme={colors}>
+						<PaperProvider>
+							<Routes />
+						</PaperProvider>
+					</ThemeProvider>
+				</PersistGate>
 			</StoreProvider>
 		);
 	}

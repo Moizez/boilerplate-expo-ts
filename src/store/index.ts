@@ -1,17 +1,29 @@
-import { reactotronRedux } from 'reactotron-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createStore, applyMiddleware, compose } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import createSagaMiddleware from 'redux-saga'
 import Reactotron from '../config/reactotron'
 
 import rootReducer from './modules/rootReducer'
 import rootSaga from './modules/rootSaga'
 
+const persistConfig = {
+    key: 'root',
+    storage: AsyncStorage,
+    whitelist: ['auth', 'user']
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
-    rootReducer,
+    persistedReducer,
     compose(applyMiddleware(sagaMiddleware), Reactotron.createEnhancer())
 )
 
+const persistor = persistStore(store)
+
 sagaMiddleware.run(rootSaga)
 
-export default store
+export { store, persistor }

@@ -23,7 +23,6 @@ function auth(state = INITIAL_STATE, action: any) {
                 draft.token = action.payload.token
                 draft.signed = true
                 draft.loading = false
-                console.log('DRAFT: ', draft)
                 return draft
             }
 

@@ -1,4 +1,5 @@
 import { takeLatest, all, select, put, call } from 'redux-saga/effects'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Alert } from 'react-native'
 import api from '../../../services/api'
 import types from './types'
@@ -7,7 +8,7 @@ import { signInFailure, signInSuccess } from './actions'
 
 export function* signIn({ payload }) {
 
-    console.log('PAYLOAD: ', payload)
+    //console.log('PAYLOAD: ', payload)
 
     try {
 
@@ -15,12 +16,13 @@ export function* signIn({ payload }) {
         const response = yield call(api.post, '/login', { email, password })
         const { token, user } = response.data
 
-        console.log('TOKEN: ', token)
+        //console.log('DATA: ', response.data)
 
         if (!token) {
             yield put(signInFailure());
         } else {
             api.defaults.headers.Authorization = `Bearer ${token}`;
+            //yield call(() => AsyncStorage.setItem('@user', JSON.stringify(user)))
             yield put(signInSuccess(token, user));
         }
 

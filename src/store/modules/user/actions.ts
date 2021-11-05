@@ -1,17 +1,20 @@
-import types from "../../types";
+import types from "./types";
 
-export function signInUser() {
-    return { type: types.SIGNIN_USER }
+export function updateUserRequest(payload: Object) {
+    return {
+        type: types.USER_UPDATE_REQUEST,
+        payload
+    }
 }
 
-export function setUser(payload: Object) {
-    return { type: types.SET_USER, payload }
+export function updateUserSuccess(payload: Object) {
+    return {
+        type: types.USER_UPDATE_SUCCESS,
+        payload
+    }
 }
 
-export function setForm(payload: Object) {
-    return { type: types.SET_FORM, payload };
+export function updateUserFailure() {
+    return { type: types.USER_UPDATE_FAILURE }
 }
 
-export function reset(key: String) {
-    return { type: types.RESET, key }
-}

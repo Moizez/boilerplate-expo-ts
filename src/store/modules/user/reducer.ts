@@ -1,15 +1,10 @@
 import produce from "immer";
-import types from "../../types";
-import { TUser} from '../../../utils/types'
+import types from "./types";
+import { TUser } from '../../../utils/types'
 
 const INITIAL_STATE: TUser = {
     user: {},
-    userForm: {},
-    form: {
-        disabled: false,
-        loading: false,
-        saving: false
-    }
+    loading: false
 }
 
 function user(state = INITIAL_STATE, action: any) {
@@ -17,24 +12,35 @@ function user(state = INITIAL_STATE, action: any) {
     return produce(state, draft => {
 
         switch (action.type) {
-            case types.SET_REDUCER: {
-                return draft[action.key] = action.payload
+            case types.SIGN_IN_SUCCESS: {
+                draft.user = { ...state.user, ...action.payload.user }
+                return draft
             }
 
-            case types.SET_USER: {
-                return draft.userForm = { ...state.userForm, ...action.payload }
+            case types.USER_UPDATE_REQUEST: {
+                draft.loading = true
+                return draft
             }
 
-            case types.SET_FORM: {
-                return draft.form = { ...state.form, ...action.payload }
+            case types.USER_UPDATE_SUCCESS: {
+                draft.user = { ...state.user, ...action.payload.user }
+                draft.loading = false
+                return draft
             }
 
-            case types.RESET: {
-                return draft[action.key] = INITIAL_STATE[action.key]
+            case types.USER_UPDATE_FAILURE: {
+                draft.loading = false
+                return draft
+            }
+
+            case types.SIGN_OUT: {
+                draft.user = null
+                draft.loading = false
+                return draft
             }
 
             default:
-                break;
+                return draft
         }
 
     })

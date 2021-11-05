@@ -1,48 +1,27 @@
-import React, { useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
 import * as yup from 'yup'
-import { replace } from '../../utils/rootNavigation'
 import { signInRequest } from '../../store/modules/auth/actions'
-import { TUser } from '../../utils/types'
 
 import { Container, Title, Text, TextInput, Button, Spacer } from '../../styles';
 
-const SignIn = () => {
+const SignUp = () => {
 
     const dispatch = useDispatch()
-    const { user } = useSelector((state: TUser) => state)
-
-   // console.log('USER DO STATE: ', user)
-
-    // const getLoggedState = async () => {
-    //     await AsyncStorage.clear()
-    //     const userStorage = await AsyncStorage.getItem('@user')
-
-    //     if (!userStorage) {
-    //         return
-    //     }
-        
-    //     replace('Home')
-    // }
-
-    // useEffect(() => {
-    //     getLoggedState()
-    // }, [])
 
     const validationSchema = yup.object().shape({
-        email: yup.string().email('Digite um e-mail válido!').required('O e-mail é obrigatório!'),
-        password: yup.string().required('A senha é obrigatória!'),
-    })
+		email: yup.string().email('Digite um e-mail válido!').required('O e-mail é obrigatório!'),
+		password: yup.string().required('A senha é obrigatória!'),
+	})
 
     const formik = useFormik({
-        initialValues: { email: '', password: '' },
-        validationSchema: validationSchema,
-        onSubmit: async (values) => {
-            dispatch(signInRequest(values))
-        }
-    })
+		initialValues: { email: '', password: '' },
+		validationSchema: validationSchema,
+		onSubmit: async (values) => {
+			dispatch(signInRequest(values))
+		}
+	})
 
     return (
         <Container>
@@ -94,4 +73,4 @@ const SignIn = () => {
     )
 }
 
-export default SignIn;
+export default SignUp;

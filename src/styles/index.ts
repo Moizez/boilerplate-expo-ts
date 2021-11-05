@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { ContainerProps, SpacerProps, TitleProps, ButtonProps } from './TStyles'
+import Constants from 'expo-constants';
 
 import {
   Text as TextPaper,
@@ -38,6 +39,7 @@ export const Container = styled.View<ContainerProps>`
   border-radius: ${props => props.radius ? '5px' : '0px'};
   border: ${props => props.border || 'none'};
   background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
+  margin-top: ${()=> Constants.statusBarHeight + 'px'};
 `;
 
 export const Title = styled(TitlePaper) <TitleProps>`
