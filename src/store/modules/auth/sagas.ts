@@ -22,11 +22,11 @@ export function* signIn({ payload }) {
             yield put(signInFailure());
         } else {
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            //yield call(() => AsyncStorage.setItem('@user', JSON.stringify(user)))
             yield put(signInSuccess(token, user));
         }
 
     } catch (error) {
+        yield put(signInFailure());
         Alert.alert('Falha na autenticação.');
         console.log(`Erro: ${error}`)
     }

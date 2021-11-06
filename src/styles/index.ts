@@ -3,11 +3,12 @@ import { ContainerProps, SpacerProps, TitleProps, ButtonProps } from './TStyles'
 import Constants from 'expo-constants';
 
 import {
-  Text as TextPaper,
-  Title as TitlePaper,
-  Button as ButtonPaper,
-  TextInput as TextInputPaper,
-  ActivityIndicator as ActivityIndicatorPaper,
+	Text as TextPaper,
+	Title as TitlePaper,
+	Button as ButtonPaper,
+	TextInput as TextInputPaper,
+	HelperText as HelperTextPaper,
+	ActivityIndicator as ActivityIndicatorPaper,
 } from 'react-native-paper';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -39,7 +40,15 @@ export const Container = styled.View<ContainerProps>`
   border-radius: ${props => props.radius ? '5px' : '0px'};
   border: ${props => props.border || 'none'};
   background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
-  margin-top: ${()=> Constants.statusBarHeight + 'px'};
+  margin-top: ${() => Constants.statusBarHeight + 'px'};
+`;
+
+export const ContainerKeyboardAvoiding = styled.KeyboardAvoidingView<ContainerProps>`
+  flex: 1;
+  width: ${props => props.width || '100%'};
+  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
+  padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
 `;
 
 export const Title = styled(TitlePaper) <TitleProps>`
@@ -55,31 +64,35 @@ export const Text = styled(TextPaper).attrs({})`
 `;
 
 export const Button = styled(ButtonPaper).attrs<ButtonProps>((props) => ({
-  color: props.theme[props.background] || props.background || props.theme.primary,
-  width: props.block ? '100%' : 'auto',
-  labelStyle: {
-    color: props.theme[props.textColor || 'light'],
-    letterSpacing: 0,
-    fontSize: 18
-    //fontFamily: 'Ubuntu_300Light',
-  },
-  uppercase: false,
-  mode: props.mode || 'contained',
+	color: props.theme[props.background] || props.background || props.theme.primary,
+	width: props.block ? '100%' : 'auto',
+	labelStyle: {
+		color: props.theme[props.textColor || 'light'],
+		letterSpacing: 0,
+		fontSize: 18
+		//fontFamily: 'Ubuntu_300Light',
+	},
+	uppercase: false,
+	mode: props.mode || 'contained',
+}))``;
+
+export const HelperText = styled(HelperTextPaper).attrs((props) => ({
+	type: 'error'
 }))``;
 
 export const TextInput = styled(TextInputPaper).attrs((props) => ({
-  mode: 'outlined',
-  outlineColor: props.theme.muted,
-  underlineColor: props.theme.muted,
-  selectionColor: props.theme.muted,
-  theme: {
-    colors: {
-      text: props.theme.dark,
-      primary: props.theme.dark,
-      background: props.theme.light,
-      placeholder: props.theme.dark,
-    },
-  },
+	mode: 'outlined',
+	outlineColor: props.theme.secondary,
+	underlineColor: props.theme.secondary,
+	selectionColor: props.theme.secondary,
+	theme: {
+		colors: { 
+			text: props.theme.dark,
+			primary: props.theme.dark,
+			background: props.theme.light,
+			placeholder: props.theme.dark,
+		},
+	},
 }))`
   height: 45px;
   width: 100%;
