@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { signInScheme } from '../../schemas/formSchema'
 import { signInRequest } from '../../store/modules/auth/actions'
 import { colors } from '../../styles/theme.json'
-import { TUser, GlobalState } from '../../utils/types'
+import { GlobalState } from '../../utils/types'
 
 import { Container, ContainerKeyboardAvoiding, Title, Text, TextInput, Button, Spacer, HelperText } from '../../styles';
 
@@ -13,34 +13,7 @@ const SignIn = () => {
 
     const dispatch = useDispatch()
     const { loading } = useSelector((state: GlobalState) => state.auth)
-    const { user } = useSelector((state: GlobalState) => state)
-
-    console.log(user)
-
     const [eye, setEye] = useState(false)
-
-    AsyncStorage.getAllKeys((err, keys) => {
-        AsyncStorage.multiGet(keys, (error, stores) => {
-            stores.map((result, i, store) => {
-                console.log('Minhas keys: ', { [store[i][0]]: store[i][1] });
-                return true;
-            });
-        });
-    });
-
-    const getMyObject = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem('user')
-            jsonValue != null ? JSON.parse(jsonValue) : null
-            console.log('My UserStorage. ', jsonValue)
-            return jsonValue
-        } catch (e) {
-            // read error
-        }
-
-    }
-
-    console.log(getMyObject())
 
     const formik = useFormik({
         initialValues: { email: '', password: '' },
@@ -75,7 +48,7 @@ const SignIn = () => {
                         <TextInput.Icon
                             color={formik.touched.password && formik.errors.email ? colors.danger : colors.secondary}
                             name='email'
-                            style={{marginTop: 15}}
+                            style={{ marginTop: 15 }}
                         />
                     }
                 />
@@ -102,7 +75,7 @@ const SignIn = () => {
                             color={formik.touched.password && formik.errors.password ? colors.danger : colors.secondary}
                             name={eye ? 'eye-off' : 'eye'}
                             onPress={() => setEye(!eye)}
-                            style={{marginTop: 15}}
+                            style={{ marginTop: 15 }}
                         />
                     }
                 />

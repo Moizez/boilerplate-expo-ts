@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {colors} from './theme.json'
 import { ContainerProps, SpacerProps, TitleProps, ButtonProps } from './TStyles'
 import Constants from 'expo-constants';
 
@@ -56,7 +57,7 @@ export const Title = styled(TitlePaper) <TitleProps>`
   text-align: ${props => props.align || 'left'};
   letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
   font-weight: ${props => props.bold ? 'bold' : 'normal'};
-  color: ${props => `${props.theme[props?.color || 'primary'] || props.color}`};
+  color: ${props => `${props.theme[props?.color] || props.color || colors.dark50}`};
 `;
 
 export const Text = styled(TextPaper).attrs({})`

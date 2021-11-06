@@ -5,7 +5,7 @@ import { Container, Title, Text } from '../../styles';
 const SplashScreen = () => {
     return (
         <Container background='#fff' align='center' justify='center'>
-            <Title>Título do App</Title>
+            <Title>Bem-vindo ao Boilerplate</Title>
             <Text>Carregando...</Text>
         </Container>
     )
