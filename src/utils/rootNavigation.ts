@@ -1,8 +1,9 @@
 import { createRef } from 'react';
+import { TNavigation } from './typesNavigation';
 
-export const navigationRef = createRef();
+export const navigationRef = createRef<TNavigation>();
 
-export const navigate = (name: string, params: any) => {
+export const navigate = (name: string, params?: any) => {
     navigationRef.current?.navigate(name, params);
 }
 

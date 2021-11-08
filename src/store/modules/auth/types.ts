@@ -6,7 +6,10 @@ const types = {
     SIGN_UP_SUCCESS: '@auth/SIGN_UP_SUCCESS',
 
     SIGN_IN_FAILURE: '@auth/SIGN_IN_FAILURE',
-    SIGN_OUT: '@auth/SIGN_OUT'
+    SIGN_UP_FAILURE: '@auth/SIGN_UP_FAILURE',
+    SIGN_OUT: '@auth/SIGN_OUT',
+
+    ALERT: '@auth/ALERT'
 }
 
 export default types

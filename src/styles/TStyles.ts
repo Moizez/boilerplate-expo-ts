@@ -1,4 +1,4 @@
-export interface ContainerProps {
+export type ContainerProps = {
     background?: string,
     align?: string,
     justify?: string,
@@ -6,20 +6,23 @@ export interface ContainerProps {
     wrap?: string,
     row?: string,
     width?: string,
+    maxWidth?: string,
+    minWidth?: string,
     height?: string,
-    maxHeight?: string
-    hasPadding?: boolean
+    maxHeight?: string,
+    minHeight?: string,
+    hasPadding?: boolean,
     removePaddingTop?: string,
     removePaddingBottom?: string,
     radius?: string,
     border?: string,
 }
 
-export interface SpacerProps {
+export type SpacerProps = {
     size?: number,
 }
 
-export interface TitleProps {
+export type TitleProps = {
     color?: string,
     small?: boolean,
     big?: boolean,
@@ -30,8 +33,22 @@ export interface TitleProps {
     spacing?: number
 }
 
-export interface ButtonProps {
+export type ButtonProps = {
     background?: string,
     block?: boolean,
     textColor?: string
-  }
+}
+
+export type TextInputProps = {
+    error: boolean | string
+}
+
+export type HelperTextProps = {
+    type?: string
+}
+
+export type SnackbarProps = {
+    background?: string,
+    time?: number,
+    style?: string
+}

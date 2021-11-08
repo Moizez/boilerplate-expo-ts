@@ -8,7 +8,6 @@ const INITIAL_STATE: TAuth = {
     loading: false
 }
 
-
 function auth(state = INITIAL_STATE, action: any) {
 
     return produce(state, draft => {

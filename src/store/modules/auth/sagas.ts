@@ -1,10 +1,9 @@
 import { takeLatest, all, select, put, call } from 'redux-saga/effects'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Alert } from 'react-native'
 import api from '../../../services/api'
 import types from './types'
 
 import { signInFailure, signInSuccess } from './actions'
+import { openAlert } from '../storageless/actions'
 
 export function* signIn({ payload }) {
 
@@ -19,15 +18,17 @@ export function* signIn({ payload }) {
         //console.log('DATA: ', response.data)
 
         if (!token) {
+            yield put(openAlert('Token não identificado!'))
             yield put(signInFailure());
         } else {
+            //@ts-ignore
             api.defaults.headers.Authorization = `Bearer ${token}`;
             yield put(signInSuccess(token, user));
         }
 
     } catch (error) {
         yield put(signInFailure());
-        Alert.alert('Falha na autenticação.');
+        yield put(openAlert(`Erro: ${error}`))
         console.log(`Erro: ${error}`)
     }
 }
@@ -39,14 +40,14 @@ export function setToken(payload) {
     const { token } = payload?.auth || payload?.token;
     console.log("TOKEN", token)
     if (token) {
+        //@ts-ignore
         api.defaults.headers.Authorization = `Bearer ${token}`;
         return;
     }
 }
 
 
-
-
 export default all([
+    //@ts-ignore
     takeLatest(types.SIGN_IN_REQUEST, signIn)
 ])

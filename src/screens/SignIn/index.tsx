@@ -1,30 +1,37 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFormik } from 'formik';
 import { signInScheme } from '../../schemas/formSchema'
 import { signInRequest } from '../../store/modules/auth/actions'
 import { colors } from '../../styles/theme.json'
 import { GlobalState } from '../../utils/types'
+import { navigate } from '../../utils/rootNavigation'
+import { closeAlert } from '../../store/modules/storageless/actions'
+import { Keyboard } from 'react-native'
 
-import { Container, ContainerKeyboardAvoiding, Title, Text, TextInput, Button, Spacer, HelperText } from '../../styles';
+import {
+    Container, ContainerKeyboardAvoiding, Title, Text, TextInput,
+    Button, Spacer, HelperText, Snackbar, Touchable
+} from '../../styles';
 
 const SignIn = () => {
 
     const dispatch = useDispatch()
     const { loading } = useSelector((state: GlobalState) => state.auth)
+    const { alert: { message, visible } } = useSelector((state: GlobalState) => state.storageless)
     const [eye, setEye] = useState(false)
 
     const formik = useFormik({
         initialValues: { email: '', password: '' },
         validationSchema: signInScheme,
         onSubmit: async (values) => {
+            Keyboard.dismiss()
             dispatch(signInRequest(values))
         }
     })
 
     return (
-        <Container>
+        <Container background='light'>
 
             <Container align='center' justify='center'>
                 <Title color='secondary'>Boilerplate React Native</Title>
@@ -43,6 +50,7 @@ const SignIn = () => {
                     value={formik.values.email}
                     onChangeText={formik.handleChange('email')}
                     onBlur={formik.handleBlur('email')}
+                    //@ts-ignore
                     error={formik.touched.email && formik.errors.email}
                     right={
                         <TextInput.Icon
@@ -69,6 +77,7 @@ const SignIn = () => {
                     value={formik.values.password}
                     onChangeText={formik.handleChange('password')}
                     onBlur={formik.handleBlur('password')}
+                    //@ts-ignore
                     error={formik.touched.password && formik.errors.password}
                     right={
                         <TextInput.Icon
@@ -95,7 +104,25 @@ const SignIn = () => {
                 >
                     Entrar
                 </Button>
+
+                <Touchable
+                    onPress={() => navigate('SignUp')}
+                    align='center'
+                    justify='center'
+                >
+                    <Text>Cadastre-se aqui</Text>
+                </Touchable>
+
             </ContainerKeyboardAvoiding>
+
+            <Snackbar
+                visible={visible}
+                onDismiss={() => dispatch(closeAlert())}
+                background='#f00'
+                time={3000}
+            >
+                {message}
+            </Snackbar>
 
         </Container>
 
