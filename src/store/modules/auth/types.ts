@@ -9,7 +9,7 @@ const types = {
     SIGN_UP_FAILURE: '@auth/SIGN_UP_FAILURE',
     SIGN_OUT: '@auth/SIGN_OUT',
 
-    ALERT: '@auth/ALERT'
+    ONBOARD: '@auth/ONBOARD' 
 }
 
 export default types

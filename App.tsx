@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {StatusBar} from 'react-native'
 import { ThemeProvider } from 'styled-components/native';
 import SplashScreen from './src/components/SplashScreen';
 import { PersistGate } from 'redux-persist/integration/react'
@@ -31,6 +32,7 @@ const App = () => {
 				<PersistGate loading={null} persistor={persistor}>
 					<ThemeProvider theme={colors}>
 						<PaperProvider>
+							<StatusBar backgroundColor={colors.light} barStyle='dark-content'/>
 							<Routes />
 						</PaperProvider>
 					</ThemeProvider>

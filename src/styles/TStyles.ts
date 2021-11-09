@@ -1,10 +1,11 @@
 export type ContainerProps = {
+    flex?: number,
     background?: string,
     align?: string,
     justify?: string,
     spacing?: string | number,
     wrap?: string,
-    row?: string,
+    row?: boolean,
     width?: string,
     maxWidth?: string,
     minWidth?: string,
@@ -15,7 +16,8 @@ export type ContainerProps = {
     removePaddingTop?: string,
     removePaddingBottom?: string,
     radius?: string,
-    border?: string,
+    border?: number,
+    borderColor?:string
 }
 
 export type SpacerProps = {

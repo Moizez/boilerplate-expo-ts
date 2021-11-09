@@ -11,15 +11,12 @@ import AuthRoutes from './auth.routes'
 
 const Routes = () => {
 
-    const { signed } = useSelector((state: GlobalState) => state.auth);
+    const { signed, onboard } = useSelector((state: GlobalState) => state.auth);
 
     return (
-        <>
-            <StatusBar style='auto' />
-            <NavigationContainer ref={navigationRef}>
-                {signed ? <AppRoutes /> : <AuthRoutes />}
-            </NavigationContainer>
-        </>
+        <NavigationContainer ref={navigationRef}>
+            {signed ? <AppRoutes /> : <AuthRoutes initialRoute={onboard} />}
+        </NavigationContainer>
     )
 }
 

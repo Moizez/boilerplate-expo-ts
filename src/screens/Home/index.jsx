@@ -1,17 +1,28 @@
-import React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch } from 'react-redux'
-import {signOutRequest} from '../../store/modules/auth/actions'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { signOutRequest } from '../../store/modules/auth/actions'
+import { requestActivities } from '../../store/modules/storageless/actions';
 
 import { Container, Title, Button } from '../../styles'
 
 const Home = () => {
 
     const dispatch = useDispatch()
+    const { activities } = useSelector(state => state.storageless)
 
-    const logOut = async () => {
+    console.log(activities)
+
+    const logOut = () => {
         dispatch(signOutRequest())
     }
+
+    const getAct = () => {
+        dispatch(requestActivities())
+    }
+
+    useEffect(() => {
+        getAct()
+    }, [])
 
     return (
         <Container align='center' justify='center' hasPadding>

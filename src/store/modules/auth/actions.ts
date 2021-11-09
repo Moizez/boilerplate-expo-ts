@@ -32,3 +32,7 @@ export function signOutRequest() {
     return { type: types.SIGN_OUT }
 }
 
+export function onboardRequest() {
+    return { type: types.ONBOARD }
+}
+

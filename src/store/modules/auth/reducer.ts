@@ -5,7 +5,8 @@ import { TAuth } from '../../../utils/types'
 const INITIAL_STATE: TAuth = {
     token: null,
     signed: false,
-    loading: false
+    loading: false,
+    onboard: false
 }
 
 function auth(state = INITIAL_STATE, action: any) {
@@ -42,6 +43,11 @@ function auth(state = INITIAL_STATE, action: any) {
                 return draft
             }
 
+            case types.ONBOARD: {
+                draft.onboard = true
+                return draft
+            }
+
             case types.SIGN_OUT: {
                 draft.token = null
                 draft.signed = false
@@ -50,7 +56,7 @@ function auth(state = INITIAL_STATE, action: any) {
             }
 
             default:
-                return draft
+                return state
         }
 
     })

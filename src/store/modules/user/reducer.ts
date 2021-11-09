@@ -40,7 +40,7 @@ function user(state = INITIAL_STATE, action: any) {
             }
 
             default:
-                return draft
+                return state
         }
 
     })

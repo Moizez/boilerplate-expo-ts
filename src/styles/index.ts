@@ -16,7 +16,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 
 export const Container = styled.View<ContainerProps>`
-  flex: 1;
+  flex: ${props => props.flex || 1};
   flex-wrap: ${props => props.wrap || 'nowrap'};
   flex-direction: ${props => props.row ? 'row' : 'column'};
   justify-content: ${props => props.justify || 'flex-start'};
@@ -35,13 +35,13 @@ export const Container = styled.View<ContainerProps>`
   
   margin: ${props => props.spacing || 0};
   border-radius: ${props => props.radius ? '5px' : '0px'};
-  border: ${props => props.border || 'none'};
+  border-width: ${props => `${props.border || 0}px`};
+  border-color: ${props => `${props.theme[props?.borderColor] || props?.borderColor || '#000'}`};
   background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
-  margin-top: ${() => Constants.statusBarHeight + 'px'};
 `;
 
 export const ContainerKeyboardAvoiding = styled.KeyboardAvoidingView<ContainerProps>`
-  flex: 1;
+  flex: ${props => props.flex || 1};
   width: ${props => props.width || '100%'};
   padding: ${props => (props.hasPadding ? '20px' : '0px')};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
@@ -49,7 +49,7 @@ export const ContainerKeyboardAvoiding = styled.KeyboardAvoidingView<ContainerPr
 `;
 
 export const Touchable = styled.TouchableOpacity<ContainerProps>`
-  flex: 1;
+  flex: ${props => props.flex || 1};
   flex-wrap: ${props => props.wrap || 'nowrap'};
   flex-direction: ${props => props.row ? 'row' : 'column'};
   justify-content: ${props => props.justify || 'flex-start'};
@@ -73,7 +73,7 @@ export const Touchable = styled.TouchableOpacity<ContainerProps>`
   background: ${props => props?.background ? 'rgba(0, 0, 0, 0.5)' : 'transparent'};
 `;
 
-export const Title = styled(TitlePaper) <TitleProps>`
+export const Title = styled.Text <TitleProps>`
   font-size: ${props => props.small ? '20px' : props.big ? '40px' : props.size ? props.size + 'px' : '30px'};
   text-align: ${props => props.align || 'left'};
   letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};

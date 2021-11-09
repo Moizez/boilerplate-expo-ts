@@ -8,10 +8,17 @@ import Tour from '../screens/Tour';
 
 const Stack = createStackNavigator()
 
-const AuthRoutes = () => {
+type RouteProps = {
+    initialRoute: boolean
+}
+
+const AuthRoutes = ({ initialRoute }: RouteProps) => {
 
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='SignIn' >
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName={initialRoute ? 'SignIn' : 'Tour'}
+        >
             <Stack.Screen name='Tour' component={Tour} />
             <Stack.Screen name='SignIn' component={SignIn} />
             <Stack.Screen

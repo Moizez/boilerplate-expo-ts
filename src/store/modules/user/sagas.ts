@@ -15,5 +15,6 @@ export function* updateUser({ payload }) {
 
 
 export default all([
+    //@ts-ignore
     takeLatest(types.USER_UPDATE_REQUEST, updateUser)
 ])

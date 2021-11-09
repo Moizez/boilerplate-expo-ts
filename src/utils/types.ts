@@ -2,6 +2,7 @@ export type TAuth = {
 	token?: string,
 	signed?: boolean,
 	loading?: boolean,
+	onboard?: boolean
 }
 
 export type TUser = {
@@ -10,6 +11,7 @@ export type TUser = {
 }
 
 export type TStorageless = {
+	activities?: Array<{}>,
 	alert: TAlert
 }
 
@@ -34,15 +36,16 @@ export type TAlert = {
 
 export type TActionAuth = {
 	type?: string,
-	payload?: TAuth 
+	payload?: TAuth
 }
 
 export type TActionUser = {
 	type?: string,
-	payload?: TUser 
+	payload?: TUser
 }
 
 export type TActionStorageless = {
 	type?: string,
-	payload?: TStorageless 
-} 
+	payload?: TStorageless,
+	key?: string
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
-import { signInScheme } from '../../schemas/formSchema'
+import { signInSchema } from '../../schemas/formSchema'
 import { signInRequest } from '../../store/modules/auth/actions'
 import { colors } from '../../styles/theme.json'
 import { GlobalState } from '../../utils/types'
@@ -23,15 +23,15 @@ const SignIn = () => {
 
     const formik = useFormik({
         initialValues: { email: '', password: '' },
-        validationSchema: signInScheme,
+        validationSchema: signInSchema,
         onSubmit: async (values) => {
-            Keyboard.dismiss()
             dispatch(signInRequest(values))
+            Keyboard.dismiss()
         }
     })
 
     return (
-        <Container background='light'>
+        <Container background='light' hasPadding>
 
             <Container align='center' justify='center'>
                 <Title color='secondary'>Boilerplate React Native</Title>
@@ -39,7 +39,7 @@ const SignIn = () => {
 
             </Container>
 
-            <ContainerKeyboardAvoiding hasPadding>
+            <ContainerKeyboardAvoiding>
 
                 <TextInput
                     label='Seu e-mail'
@@ -54,7 +54,7 @@ const SignIn = () => {
                     error={formik.touched.email && formik.errors.email}
                     right={
                         <TextInput.Icon
-                            color={formik.touched.password && formik.errors.email ? colors.danger : colors.secondary}
+                            color={formik.touched.email && formik.errors.email ? colors.danger : colors.secondary}
                             name='email'
                             style={{ marginTop: 15 }}
                         />
