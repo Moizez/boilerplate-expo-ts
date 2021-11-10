@@ -3,7 +3,7 @@ export type ContainerProps = {
     background?: string,
     align?: string,
     justify?: string,
-    spacing?: string | number,
+    margin?: number,
     wrap?: string,
     row?: boolean,
     width?: string,
@@ -17,14 +17,22 @@ export type ContainerProps = {
     removePaddingBottom?: string,
     radius?: string,
     border?: number,
-    borderColor?:string
+    borderColor?: string
+}
+
+export type ScrollViewProps = {
+    margin?: number,
+    hasPadding?: boolean,
+    removePaddingTop?: string,
+    removePaddingBottom?: string,
+    background?: string
 }
 
 export type SpacerProps = {
     size?: number,
 }
 
-export type TitleProps = {
+export type TextProps = {
     color?: string,
     small?: boolean,
     big?: boolean,
@@ -32,7 +40,11 @@ export type TitleProps = {
     bold?: string,
     align?: string,
     scale?: string,
-    spacing?: number
+    spacing?: number,
+    hasPadding?: boolean,
+    opacity?: number,
+    decoration?: string,
+    margin?: number
 }
 
 export type ButtonProps = {
@@ -47,6 +59,11 @@ export type TextInputProps = {
 
 export type HelperTextProps = {
     type?: string
+}
+
+export type ActivityIndicatorProps = {
+    color?: string,
+    size?:string
 }
 
 export type SnackbarProps = {

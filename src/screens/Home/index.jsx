@@ -10,8 +10,6 @@ const Home = () => {
     const dispatch = useDispatch()
     const { activities } = useSelector(state => state.storageless)
 
-    console.log(activities)
-
     const logOut = () => {
         dispatch(signOutRequest())
     }
@@ -26,7 +24,7 @@ const Home = () => {
 
     return (
         <Container align='center' justify='center' hasPadding>
-            <Title>HOME</Title>
+            <Title big>HOME</Title>
             <Button
                 block
                 background='primary'

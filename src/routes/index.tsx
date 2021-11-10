@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { StatusBar } from 'expo-status-bar'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { navigationRef } from '../utils/rootNavigation'
 import { GlobalState } from '../utils/types'
@@ -14,6 +12,7 @@ const Routes = () => {
     const { signed, onboard } = useSelector((state: GlobalState) => state.auth);
 
     return (
+        //@ts-ignore
         <NavigationContainer ref={navigationRef}>
             {signed ? <AppRoutes /> : <AuthRoutes initialRoute={onboard} />}
         </NavigationContainer>

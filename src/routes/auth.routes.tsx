@@ -8,11 +8,11 @@ import Tour from '../screens/Tour';
 
 const Stack = createStackNavigator()
 
-type RouteProps = {
+type AuthRoutesProps = {
     initialRoute: boolean
 }
 
-const AuthRoutes = ({ initialRoute }: RouteProps) => {
+const AuthRoutes = ({ initialRoute }: AuthRoutesProps) => {
 
     return (
         <Stack.Navigator

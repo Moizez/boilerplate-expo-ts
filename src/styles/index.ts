@@ -1,19 +1,20 @@
 import styled from 'styled-components/native';
 import { colors } from './theme.json'
-import { ContainerProps, SpacerProps, TitleProps, ButtonProps, SnackbarProps, TextInputProps, HelperTextProps } from './TStyles'
-import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
+
+import {
+  ContainerProps, SpacerProps, TextProps, ButtonProps, SnackbarProps, TextInputProps,
+  HelperTextProps, ScrollViewProps, ActivityIndicatorProps
+} from './TStyles'
 
 import {
   Text as TextPaper,
-  Title as TitlePaper,
   Button as ButtonPaper,
   TextInput as TextInputPaper,
   HelperText as HelperTextPaper,
-  ActivityIndicator as ActivityIndicatorPaper,
   Snackbar as SnackbarPaper
 } from 'react-native-paper';
 
-import { LinearGradient } from 'expo-linear-gradient';
 
 export const Container = styled.View<ContainerProps>`
   flex: ${props => props.flex || 1};
@@ -33,10 +34,19 @@ export const Container = styled.View<ContainerProps>`
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
   
-  margin: ${props => props.spacing || 0};
+  margin: ${props => props.margin || 0};
   border-radius: ${props => props.radius ? '5px' : '0px'};
   border-width: ${props => `${props.border || 0}px`};
   border-color: ${props => `${props.theme[props?.borderColor] || props?.borderColor || '#000'}`};
+  background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
+`;
+
+export const ScrollView = styled.ScrollView<ScrollViewProps>`
+  width: 100%;
+  margin: ${props => props.margin || 0};
+  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
+  padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
   background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
 `;
 
@@ -66,23 +76,35 @@ export const Touchable = styled.TouchableOpacity<ContainerProps>`
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
 
-  margin: ${props => props.spacing || 0};
+  margin: ${props => props.margin || 0};
   border-radius: ${props => props.radius || 0};
   border: ${props => props.border || 'none'};
 
   background: ${props => props?.background ? 'rgba(0, 0, 0, 0.5)' : 'transparent'};
 `;
 
-export const Title = styled.Text <TitleProps>`
+export const Title = styled.Text <TextProps>`
   font-size: ${props => props.small ? '20px' : props.big ? '40px' : props.size ? props.size + 'px' : '30px'};
   text-align: ${props => props.align || 'left'};
   letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
   font-weight: ${props => props.bold ? 'bold' : 'normal'};
   color: ${props => `${props.theme[props?.color] || props.color || colors.dark50}`};
+  margin: ${props => `${props.margin || 0}px`};
+  letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
+  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  opacity: ${props => props.opacity || 1};
+  text-decoration: ${props => props.decoration || 'none'};
 `;
 
-export const Text = styled(TextPaper).attrs({})`
-  
+export const Text = styled(TextPaper) <TextProps>`
+  color: ${props => `${props.theme[props?.color] || props.color || colors.dark}`};
+  font-size: ${props => (props.small ? '13px' : '17px')};
+  margin: ${props => `${props.margin || 0}px`};
+  letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
+  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  opacity: ${props => props.opacity || 1};
+  text-align: ${props => props.align || 'left'};
+  text-decoration: ${props => props.decoration || 'none'};
 `;
 
 export const Button = styled(ButtonPaper).attrs<ButtonProps>((props) => ({
@@ -117,6 +139,13 @@ export const TextInput = styled(TextInputPaper).attrs<TextInputProps>((props) =>
   font-size: 15px;
 `;
 
+export const GradientView = styled(LinearGradient) <ContainerProps>`
+  flex: ${props => props.flex || 1};
+  padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+  justify-content: ${(props) => props.justify || 'flex-start'};
+  align-items: ${(props) => props.align || 'flex-start'};
+`;
+
 export const HelperText = styled(HelperTextPaper).attrs((props) => ({
   type: 'error'
 })) <HelperTextProps>``;
@@ -128,6 +157,12 @@ export const Snackbar = styled(SnackbarPaper).attrs<SnackbarProps>((props) => ({
   background-color: ${props => props.background ? props.background : props.theme.danger};
 `;
 
+export const ActivityIndicator = styled.ActivityIndicator.attrs<ActivityIndicatorProps>((props) => ({
+  size: props.size || 'large',
+  color: props.theme[props.color] || props.color || colors.primary
+})) <ActivityIndicatorProps>`
+  color: ${props => `${props.theme[props?.color] || props.color || colors.dark}`};
+`;
 
 export const Spacer = styled.View<SpacerProps>`
   width: 100%;
