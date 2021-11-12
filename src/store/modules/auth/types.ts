@@ -3,7 +3,6 @@ const types = {
     SIGN_IN_SUCCESS: '@auth/SIGN_IN_SUCCESS',
 
     SIGN_UP_REQUEST: '@auth/SIGN_UP_REQUEST',
-    SIGN_UP_SUCCESS: '@auth/SIGN_UP_SUCCESS',
 
     SIGN_IN_FAILURE: '@auth/SIGN_IN_FAILURE',
     SIGN_UP_FAILURE: '@auth/SIGN_UP_FAILURE',

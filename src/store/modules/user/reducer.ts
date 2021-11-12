@@ -3,7 +3,7 @@ import types from "./types";
 import { TUser } from '../../../utils/types'
 
 const INITIAL_STATE: TUser = {
-    user: {},
+    profile: {},
     loading: false
 }
 
@@ -13,7 +13,7 @@ function user(state = INITIAL_STATE, action: any) {
 
         switch (action.type) {
             case types.SIGN_IN_SUCCESS: {
-                draft.user = { ...state.user, ...action.payload.user }
+                draft.profile = { ...state.profile, ...action.payload.user }
                 return draft
             }
 
@@ -23,7 +23,7 @@ function user(state = INITIAL_STATE, action: any) {
             }
 
             case types.USER_UPDATE_SUCCESS: {
-                draft.user = { ...state.user, ...action.payload.user }
+                draft.profile = { ...state.profile, ...action.payload.profile }
                 draft.loading = false
                 return draft
             }
@@ -34,7 +34,7 @@ function user(state = INITIAL_STATE, action: any) {
             }
 
             case types.SIGN_OUT: {
-                draft.user = null
+                draft.profile = null
                 draft.loading = false
                 return draft
             }

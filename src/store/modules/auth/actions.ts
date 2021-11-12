@@ -18,10 +18,7 @@ export function signInSuccess(token: string, user: Object) {
 }
 
 export function signUpRequest(payload: any) {
-    return {
-        type: types.SIGN_UP_REQUEST,
-        payload
-    }
+    return { type: types.SIGN_UP_REQUEST, payload }
 }
 
 export function signInFailure() {

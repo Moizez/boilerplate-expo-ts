@@ -31,6 +31,41 @@ export function* signIn({ payload }) {
     }
 }
 
+export function* signUp({ payload }) {
+
+    try {
+
+        const { name, email, password, passwordConfirmation } = payload
+
+        const data = {
+            name,
+            email,
+            password,
+            password_confirmation: passwordConfirmation,
+            terms_and_conditions: true,
+        }
+
+        const response = yield call(api.post, '/register', data)
+        const { token, user } = response.data
+
+        if (!token) {
+            //@ts-ignore
+            yield put(openAlert('Token não identificado!'))
+            yield put(signInFailure());
+        } else {
+            //@ts-ignore
+            api.defaults.headers.Authorization = `Bearer ${token}`;
+            yield put(signInSuccess(token, user));
+        }
+
+    } catch (error) {
+        yield put(signInFailure());
+        //@ts-ignore
+        yield put(openAlert(`Erro: ${error}`))
+        console.log(`Erro: ${error}`)
+    }
+}
+
 export function setToken(payload) {
 
     if (!payload) return;
@@ -47,5 +82,7 @@ export function setToken(payload) {
 
 export default all([
     //@ts-ignore
-    takeLatest(types.SIGN_IN_REQUEST, signIn)
+    takeLatest(types.SIGN_IN_REQUEST, signIn),
+    //@ts-ignore
+    takeLatest(types.SIGN_UP_REQUEST, signUp)
 ])

@@ -3,7 +3,7 @@ export type ContainerProps = {
     background?: string,
     align?: string,
     justify?: string,
-    margin?: number,
+    margin?: string,
     wrap?: string,
     row?: boolean,
     width?: string,
@@ -13,8 +13,9 @@ export type ContainerProps = {
     maxHeight?: string,
     minHeight?: string,
     hasPadding?: boolean,
-    removePaddingTop?: string,
-    removePaddingBottom?: string,
+    customPadding?: string,
+    removePaddingTop?: string | boolean,
+    removePaddingBottom?: string | boolean,
     radius?: string,
     border?: number,
     borderColor?: string
@@ -23,13 +24,17 @@ export type ContainerProps = {
 export type ScrollViewProps = {
     margin?: number,
     hasPadding?: boolean,
+    customPadding?: string,
     removePaddingTop?: string,
     removePaddingBottom?: string,
-    background?: string
+    background?: string,
+    verticalScrollIndicator?: boolean,
+    horizontalScrollIndicator?: boolean
 }
 
 export type SpacerProps = {
     size?: number,
+    vertical?: boolean
 }
 
 export type TextProps = {
@@ -42,6 +47,7 @@ export type TextProps = {
     scale?: string,
     spacing?: number,
     hasPadding?: boolean,
+    customPadding?: string,
     opacity?: number,
     decoration?: string,
     margin?: number
@@ -50,7 +56,8 @@ export type TextProps = {
 export type ButtonProps = {
     background?: string,
     block?: boolean,
-    textColor?: string
+    half?: boolean,
+    textColor?: string,
 }
 
 export type TextInputProps = {
@@ -58,16 +65,27 @@ export type TextInputProps = {
 }
 
 export type HelperTextProps = {
-    type?: string
+    type?: string,
 }
 
 export type ActivityIndicatorProps = {
     color?: string,
-    size?:string
+    size?: string
 }
 
 export type SnackbarProps = {
     background?: string,
     time?: number,
     style?: string
+}
+
+export type OnboardingProps = {
+    bottomBarHeight?: number,
+    bottomBarColor?: string
+}
+
+export type ModalProps = {
+    adjustToContentHeight?: boolean,
+    background?: string,
+    handleColor?: string
 }

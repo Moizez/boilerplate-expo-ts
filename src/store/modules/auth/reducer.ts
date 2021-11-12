@@ -31,13 +31,6 @@ function auth(state = INITIAL_STATE, action: any) {
                 return draft
             }
 
-            case types.SIGN_UP_SUCCESS: {
-                draft.token = action.payload.token
-                draft.signed = true
-                draft.loading = false
-                return draft
-            }
-
             case types.SIGN_IN_FAILURE: {
                 draft.loading = false
                 return draft

@@ -6,7 +6,7 @@ export type TAuth = {
 }
 
 export type TUser = {
-	user: UserState,
+	profile: ProfileProps,
 	loading: boolean
 }
 
@@ -21,9 +21,10 @@ export type GlobalState = {
 	storageless: TStorageless
 }
 
-type UserState = {
+type ProfileProps = {
 	id: string,
 	name: string,
+	fullname: string,
 	email: string,
 	age: number,
 	phone: string

@@ -1,5 +1,4 @@
 const types = {
-
     SIGN_IN_SUCCESS: '@auth/SIGN_IN_SUCCESS',
     SIGN_OUT: '@auth/SIGN_OUT',
 

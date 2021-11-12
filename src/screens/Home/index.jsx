@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { signOutRequest } from '../../store/modules/auth/actions'
 import { requestActivities } from '../../store/modules/storageless/actions';
+import { GlobalState } from '../../utils/types'
+import ActionModal, { modalRef as actionModalRef } from '../../components/Modals/ActionModal';
 
 import { Container, Title, Button } from '../../styles'
 
 const Home = () => {
 
     const dispatch = useDispatch()
-    const { activities } = useSelector(state => state.storageless)
+    const { profile } = useSelector((state: GlobalState) => state.user)
+    const { activities } = useSelector((state: GlobalState) => state.storageless)
 
-    const logOut = () => {
+    const handleLogOut = () => {
         dispatch(signOutRequest())
     }
 
@@ -23,16 +26,19 @@ const Home = () => {
     }, [])
 
     return (
-        <Container align='center' justify='center' hasPadding>
-            <Title big>HOME</Title>
-            <Button
-                block
-                background='primary'
-                onPress={logOut}
-            >
-                Sair
-            </Button>
-        </Container>
+        <>
+            <Container align='center' justify='center' hasPadding>
+                <Title big>{profile?.fullname}</Title>
+                <Button
+                    block
+                    background='primary'
+                    onPress={() => actionModalRef.current.open()}
+                >
+                    Sair
+                </Button>
+            </Container>
+            <ActionModal handleAction={handleLogOut} />
+        </>
     )
 }
 

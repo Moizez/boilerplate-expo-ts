@@ -1,10 +1,12 @@
 import styled from 'styled-components/native';
 import { colors } from './theme.json'
 import { LinearGradient } from 'expo-linear-gradient';
+import OnboardingApp from 'react-native-onboarding-swiper';
+import { Modalize } from 'react-native-modalize';
 
 import {
   ContainerProps, SpacerProps, TextProps, ButtonProps, SnackbarProps, TextInputProps,
-  HelperTextProps, ScrollViewProps, ActivityIndicatorProps
+  HelperTextProps, ScrollViewProps, ActivityIndicatorProps, OnboardingProps, ModalProps
 } from './TStyles'
 
 import {
@@ -14,7 +16,6 @@ import {
   HelperText as HelperTextPaper,
   Snackbar as SnackbarPaper
 } from 'react-native-paper';
-
 
 export const Container = styled.View<ContainerProps>`
   flex: ${props => props.flex || 1};
@@ -30,7 +31,7 @@ export const Container = styled.View<ContainerProps>`
   max-height: ${props => props.maxHeight || 'auto'};
   min-height: ${props => props.minHeight || 'auto'};
 
-  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
   
@@ -41,10 +42,13 @@ export const Container = styled.View<ContainerProps>`
   background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
 `;
 
-export const ScrollView = styled.ScrollView<ScrollViewProps>`
+export const ScrollView = styled.ScrollView.attrs<ScrollViewProps>(props => ({
+  showsVerticalScrollIndicator: props.verticalScrollIndicator || false,
+  showsHorizontalScrollIndicator: props.horizontalScrollIndicator || false
+})) <ScrollViewProps>`
   width: 100%;
   margin: ${props => props.margin || 0};
-  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
   background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
@@ -53,13 +57,12 @@ export const ScrollView = styled.ScrollView<ScrollViewProps>`
 export const ContainerKeyboardAvoiding = styled.KeyboardAvoidingView<ContainerProps>`
   flex: ${props => props.flex || 1};
   width: ${props => props.width || '100%'};
-  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
 `;
 
 export const Touchable = styled.TouchableOpacity<ContainerProps>`
-  flex: ${props => props.flex || 1};
   flex-wrap: ${props => props.wrap || 'nowrap'};
   flex-direction: ${props => props.row ? 'row' : 'column'};
   justify-content: ${props => props.justify || 'flex-start'};
@@ -72,7 +75,7 @@ export const Touchable = styled.TouchableOpacity<ContainerProps>`
   max-height: ${props => props.maxHeight || 'auto'};
   min-height: ${props => props.minHeight || 'auto'};
 
-  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
 
@@ -89,9 +92,9 @@ export const Title = styled.Text <TextProps>`
   letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
   font-weight: ${props => props.bold ? 'bold' : 'normal'};
   color: ${props => `${props.theme[props?.color] || props.color || colors.dark50}`};
-  margin: ${props => `${props.margin || 0}px`};
+  margin: ${props => props.margin || 0};
   letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
-  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
   opacity: ${props => props.opacity || 1};
   text-decoration: ${props => props.decoration || 'none'};
 `;
@@ -99,28 +102,28 @@ export const Title = styled.Text <TextProps>`
 export const Text = styled(TextPaper) <TextProps>`
   color: ${props => `${props.theme[props?.color] || props.color || colors.dark}`};
   font-size: ${props => (props.small ? '13px' : '17px')};
-  margin: ${props => `${props.margin || 0}px`};
+  margin: ${props => props.margin || 0};
   letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
-  padding: ${props => (props.hasPadding ? '20px' : '0px')};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
   opacity: ${props => props.opacity || 1};
   text-align: ${props => props.align || 'left'};
   text-decoration: ${props => props.decoration || 'none'};
 `;
 
-export const Button = styled(ButtonPaper).attrs<ButtonProps>((props) => ({
+export const Button = styled(ButtonPaper).attrs<ButtonProps>(props => ({
   color: props.theme[props.background] || props.background || props.theme.primary,
-  width: props.block ? '100%' : 'auto',
+  width: props.block ? '100%' : props.half ? '50%' : 'auto',
   labelStyle: {
     color: props.theme[props.textColor || 'light'],
     letterSpacing: 0,
-    fontSize: 18
+    fontSize: 18,
     //fontFamily: 'Ubuntu_300Light',
   },
   uppercase: false,
   mode: props.mode || 'contained',
 })) <ButtonProps>``;
 
-export const TextInput = styled(TextInputPaper).attrs<TextInputProps>((props) => ({
+export const TextInput = styled(TextInputPaper).attrs<TextInputProps>(props => ({
   mode: 'outlined',
   outlineColor: props.theme.secondary,
   underlineColor: props.theme.secondary,
@@ -146,27 +149,45 @@ export const GradientView = styled(LinearGradient) <ContainerProps>`
   align-items: ${(props) => props.align || 'flex-start'};
 `;
 
-export const HelperText = styled(HelperTextPaper).attrs((props) => ({
-  type: 'error'
+export const HelperText = styled(HelperTextPaper).attrs(props => ({
+  type: 'error',
 })) <HelperTextProps>``;
 
-export const Snackbar = styled(SnackbarPaper).attrs<SnackbarProps>((props) => ({
+export const Snackbar = styled(SnackbarPaper).attrs<SnackbarProps>(props => ({
   duration: props.time ? props.time : 3000
 })) <SnackbarProps>`
   flex: 1;
   background-color: ${props => props.background ? props.background : props.theme.danger};
 `;
 
-export const ActivityIndicator = styled.ActivityIndicator.attrs<ActivityIndicatorProps>((props) => ({
+export const ActivityIndicator = styled.ActivityIndicator.attrs<ActivityIndicatorProps>(props => ({
   size: props.size || 'large',
   color: props.theme[props.color] || props.color || colors.primary
 })) <ActivityIndicatorProps>`
   color: ${props => `${props.theme[props?.color] || props.color || colors.dark}`};
 `;
 
+export const Onboarding = styled(OnboardingApp).attrs<OnboardingProps>(props => ({
+  controlStatusBar: false,
+  bottomBarHeight: props.bottomBarHeight,
+  bottomBarColor: props.bottomBarColor
+})) <OnboardingProps>``;
+
 export const Spacer = styled.View<SpacerProps>`
-  width: 100%;
-  height: ${props => `${props.size || 10}px`};
+  width: ${props => props.vertical ? '25px' : '100%'};
+  height: ${props => props.size ? props.size + 'px' : props.vertical ? '100%' : '10px'};
 `;
+
+export const Modal = styled(Modalize).attrs<ModalProps>(props => ({
+  adjustToContentHeight: props.adjustToContentHeight || false,
+  handleStyle: {
+    backgroundColor: props.handleColor || colors.muted,
+  },
+  modalStyle: {
+    backgroundColor: props.background || colors.white,
+  }
+})) <ModalProps>``;
+
+
 
 

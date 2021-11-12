@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { replace } from '../../utils/rootNavigation';
 import { onboardRequest } from '../../store/modules/auth/actions';
-import { tourData } from '../../utils/tourData'
 
-import { Container, Title, Button, Spacer, Text } from '../../styles';
+import { Container, Title, Button, Spacer, Text, ScrollView, Onboarding } from '../../styles';
 
 const Tour = () => {
 
@@ -16,38 +16,50 @@ const Tour = () => {
         replace('SignIn')
     }
 
-    return (
-        <Container background='danger' align='center' justify='center' hasPadding>
-            <Container border={1} borderColor='#fff' align='center' justify='center'>
-                <Title color='light'>Imagem aqui</Title>
-            </Container>
-            <Spacer size={50} />
-            <Text color={tourData[currentTour]?.descColor} align='center'>{tourData[currentTour]?.desc}</Text>
-            <Spacer size={50} />
-            <Container row justify='space-between' align='flex-end'>
-                {currentTour > 0 &&
-                    <Button
-                        onPress={() => setCurrentTour(currentTour - 1)}
-                        background={tourData[currentTour]?.button}
-                    >
-                        {currentTour < tourData.length ? 'Voltar' : 'Próximo'}
-                    </Button>
-                }
+    const NextButton = ({ ...props }) => (
+        <Button {...props} mode='text' textColor='dark'>
+            Próximo
+        </Button>
+    );
 
-                <Button
-                    onPress={() => {
-                        if (currentTour === 2) {
-                            goToSignIn()
-                        } else {
-                            setCurrentTour(currentTour + 1)
-                        }
-                    }}
-                    background={tourData[currentTour]?.button}
-                >
-                    {currentTour === 2 ? 'Começar' : 'Próximo'}
-                </Button>
-            </Container>
-        </Container>
+    const SkipButton = ({ skipLabel, ...props }) => (
+        <Button {...props} onPress={goToSignIn} mode='text' textColor='dark'>
+            Pular
+        </Button>
+    );
+
+    const DoneButton = ({ ...props }) => (
+        <Button {...props} onPress={goToSignIn} mode='text' textColor='dark'>
+            Começar
+        </Button>
+    );
+
+    return (
+        <Onboarding
+            NextButtonComponent={NextButton}
+            SkipButtonComponent={SkipButton}
+            DoneButtonComponent={DoneButton}
+            pages={[
+                {
+                    backgroundColor: '#fff',
+                    image: <Image source={require('../../assets/images/01.png')} />,
+                    title: 'Boilerplate React native',
+                    subtitle: 'App de exemplo para novos projetos',
+                },
+                {
+                    backgroundColor: '#fe6e58',
+                    image: <Image source={require('../../assets/images/02.png')} />,
+                    title: 'Tela de apresentação',
+                    subtitle: 'Pequena descrição aqui neste campo',
+                },
+                {
+                    backgroundColor: '#999',
+                    image: <Image source={require('../../assets/images/03.png')} />,
+                    title: 'Tela para iniciar o APP',
+                    subtitle: "Última tela antes de entrar no APP",
+                },
+            ]}
+        />
     )
 }
 

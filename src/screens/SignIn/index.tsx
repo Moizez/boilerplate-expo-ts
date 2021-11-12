@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
-import { signInSchema } from '../../schemas/formSchema'
+import { initialValuesSignIn, signInSchema } from '../../schemas/formSchema'
 import { signInRequest } from '../../store/modules/auth/actions'
 import { colors } from '../../styles/theme.json'
 import { GlobalState } from '../../utils/types'
@@ -22,7 +22,7 @@ const SignIn = () => {
     const [eye, setEye] = useState(false)
 
     const formik = useFormik({
-        initialValues: { email: '', password: '' },
+        initialValues: initialValuesSignIn,
         validationSchema: signInSchema,
         onSubmit: async (values) => {
             dispatch(signInRequest(values))
@@ -109,8 +109,9 @@ const SignIn = () => {
                     onPress={() => navigate('SignUp')}
                     align='center'
                     justify='center'
+                    margin='10px 0'
                 >
-                    <Text>Cadastre-se aqui</Text>
+                    <Text small>Cadastre-se aqui</Text>
                 </Touchable>
 
             </ContainerKeyboardAvoiding>
