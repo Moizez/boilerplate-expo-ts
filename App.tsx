@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'react-native'
-import { ThemeProvider } from 'styled-components/native';
-import SplashScreen from './src/components/SplashScreen';
+import { ThemeProvider } from 'styled-components';
+import SplashScreen from './src/screens/Splash';
 import { PersistGate } from 'redux-persist/integration/react'
 
 import { Provider as PaperProvider } from 'react-native-paper'

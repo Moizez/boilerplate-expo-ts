@@ -3,6 +3,7 @@ import types from "./types";
 import { TUser } from '../../../utils/types'
 
 const INITIAL_STATE: TUser = {
+    //@ts-ignore
     profile: {},
     loading: false
 }
@@ -23,7 +24,7 @@ function user(state = INITIAL_STATE, action: any) {
             }
 
             case types.USER_UPDATE_SUCCESS: {
-                draft.profile = { ...state.profile, ...action.payload.profile }
+                draft.profile = { ...state.profile, ...action.payload.user }
                 draft.loading = false
                 return draft
             }

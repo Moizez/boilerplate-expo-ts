@@ -1,3 +1,9 @@
+export type GlobalState = {
+	auth: TAuth,
+	user: TUser,
+	storageless: TStorageless
+}
+
 export type TAuth = {
 	token?: string,
 	signed?: boolean,
@@ -6,38 +12,26 @@ export type TAuth = {
 }
 
 export type TUser = {
-	profile: ProfileProps,
+	profile?: ProfileProps,
 	loading: boolean
 }
 
 export type TStorageless = {
 	activities?: Array<{}>,
-	alert: TAlert
-}
-
-export type GlobalState = {
-	auth: TAuth,
-	user: TUser,
-	storageless: TStorageless
-}
-
-type ProfileProps = {
-	id: string,
-	name: string,
-	fullname: string,
-	email: string,
-	age: number,
-	phone: string
+	alert: TAlert,
+	loading?: boolean
 }
 
 export type TAlert = {
 	visible?: boolean,
+	color?: string,
+	time?: number,
 	message: string
 }
 
 export type TActionAuth = {
 	type?: string,
-	payload?: TAuth
+	payload?: TAuth | TUser,
 }
 
 export type TActionUser = {
@@ -49,4 +43,14 @@ export type TActionStorageless = {
 	type?: string,
 	payload?: TStorageless,
 	key?: string
+}
+
+//Props internas
+type ProfileProps = {
+	id?: string,
+	name?: string,
+	fullname?: string,
+	email?: string,
+	age?: number,
+	phone?: string
 }

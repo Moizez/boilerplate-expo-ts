@@ -9,6 +9,7 @@
         "danger": "#ae2012",
         "warning": "#FECA57",
         "light": "#eeeeee",
-        "white": "#ffffff"
+        "white": "#ffffff",
+        "info": "#4895ef"
     }
 }

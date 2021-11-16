@@ -14,7 +14,8 @@ import {
   Button as ButtonPaper,
   TextInput as TextInputPaper,
   HelperText as HelperTextPaper,
-  Snackbar as SnackbarPaper
+  Snackbar as SnackbarPaper,
+  ActivityIndicator as ActivityIndicatorPaper
 } from 'react-native-paper';
 
 export const Container = styled.View<ContainerProps>`
@@ -31,7 +32,7 @@ export const Container = styled.View<ContainerProps>`
   max-height: ${props => props.maxHeight || 'auto'};
   min-height: ${props => props.minHeight || 'auto'};
 
-  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding ? props.customPadding : '0'};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
   
@@ -48,7 +49,7 @@ export const ScrollView = styled.ScrollView.attrs<ScrollViewProps>(props => ({
 })) <ScrollViewProps>`
   width: 100%;
   margin: ${props => props.margin || 0};
-  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding ? props.customPadding : '0'};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
   background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
@@ -56,10 +57,27 @@ export const ScrollView = styled.ScrollView.attrs<ScrollViewProps>(props => ({
 
 export const ContainerKeyboardAvoiding = styled.KeyboardAvoidingView<ContainerProps>`
   flex: ${props => props.flex || 1};
+  flex-wrap: ${props => props.wrap || 'nowrap'};
+  flex-direction: ${props => props.row ? 'row' : 'column'};
+  justify-content: ${props => props.justify || 'flex-start'};
+  align-items: ${props => props.align || 'flex-start'};
+
   width: ${props => props.width || '100%'};
-  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
+  max-width: ${props => props.maxWidth || '100%'};
+  min-width: ${props => props.minWidth || '100%'};
+  height: ${props => props.height || 'auto'};
+  max-height: ${props => props.maxHeight || 'auto'};
+  min-height: ${props => props.minHeight || 'auto'};
+
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding ? props.customPadding : '0'};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
+  
+  margin: ${props => props.margin || 0};
+  border-radius: ${props => props.radius ? '5px' : '0px'};
+  border-width: ${props => `${props.border || 0}px`};
+  border-color: ${props => `${props.theme[props?.borderColor] || props?.borderColor || '#000'}`};
+  background: ${props => `${props.theme[props?.background] || props?.background || 'transparent'}`};
 `;
 
 export const Touchable = styled.TouchableOpacity<ContainerProps>`
@@ -75,7 +93,7 @@ export const Touchable = styled.TouchableOpacity<ContainerProps>`
   max-height: ${props => props.maxHeight || 'auto'};
   min-height: ${props => props.minHeight || 'auto'};
 
-  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding ? props.customPadding : '0'};
   padding-top: ${props => props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
   padding-bottom: ${props => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
 
@@ -94,17 +112,17 @@ export const Title = styled.Text <TextProps>`
   color: ${props => `${props.theme[props?.color] || props.color || colors.dark50}`};
   margin: ${props => props.margin || 0};
   letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
-  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding ? props.customPadding : '0'};
   opacity: ${props => props.opacity || 1};
   text-decoration: ${props => props.decoration || 'none'};
 `;
 
-export const Text = styled(TextPaper) <TextProps>`
+export const Text = styled.Text <TextProps>`
   color: ${props => `${props.theme[props?.color] || props.color || colors.dark}`};
   font-size: ${props => (props.small ? '13px' : '17px')};
   margin: ${props => props.margin || 0};
   letter-spacing: ${props => props.spacing ? props.spacing + 'px' : '0'};
-  padding: ${props => props.hasPadding ? '20px' : props.customPadding? props.customPadding : '0'};
+  padding: ${props => props.hasPadding ? '20px' : props.customPadding ? props.customPadding : '0'};
   opacity: ${props => props.opacity || 1};
   text-align: ${props => props.align || 'left'};
   text-decoration: ${props => props.decoration || 'none'};
@@ -154,17 +172,17 @@ export const HelperText = styled(HelperTextPaper).attrs(props => ({
 })) <HelperTextProps>``;
 
 export const Snackbar = styled(SnackbarPaper).attrs<SnackbarProps>(props => ({
-  duration: props.time ? props.time : 3000
+  duration: props.time ? props.time : 3000,
 })) <SnackbarProps>`
   flex: 1;
   background-color: ${props => props.background ? props.background : props.theme.danger};
 `;
 
-export const ActivityIndicator = styled.ActivityIndicator.attrs<ActivityIndicatorProps>(props => ({
+export const ActivityIndicator = styled(ActivityIndicatorPaper).attrs<ActivityIndicatorProps>(props => ({
   size: props.size || 'large',
   color: props.theme[props.color] || props.color || colors.primary
 })) <ActivityIndicatorProps>`
-  color: ${props => `${props.theme[props?.color] || props.color || colors.dark}`};
+  flex: 1;
 `;
 
 export const Onboarding = styled(OnboardingApp).attrs<OnboardingProps>(props => ({
