@@ -4,8 +4,12 @@ import api from '../../../services/api'
 import types from './types'
 
 import { updateUserSuccess, updateUserFailure } from './actions'
+import { GlobalState } from '../../../utils/types'
 
 export function* updateUser({ payload }) {
+
+    const { profile } = yield select((state: GlobalState) => state.user)
+    const { token } = yield select((state: GlobalState) => state.auth)
 
     try {
 
@@ -13,23 +17,23 @@ export function* updateUser({ payload }) {
         data.append('name', payload.name)
         data.append('job', null)
         data.append('profile_picture', {
-            uri: payload.uri,
+            uri: '',
             type: 'image/jpg',
             name: 'teste-app'
         })
 
-        const response = yield call(api.post, `employees/${payload.id}/update`, data, {
+        const response = yield call(api.post, `employees/${profile.id}/update`, data, {
             headers: {
-                //Authorization: `Bearer ${payload.token}`,
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data"
             }
         });
 
         if (response.status == 200) {
             yield put(updateUserSuccess(response.data));
-        }else{
+        } else {
             //@ts-ignore
-            yield put(openAlert('Falha ao atualizar usuário!'))
+            yield put(openAlert({ message: 'Falha ao atualizar usuário!' }))
             yield put(updateUserFailure());
         }
 
@@ -37,8 +41,8 @@ export function* updateUser({ payload }) {
     } catch (error) {
         yield put(updateUserFailure());
         //@ts-ignore
-        yield put(openAlert(`Erro: ${error}`))
-        console.log(`Erro: ${error}`)
+        yield put(openAlert({ message: `Erro: ${error.message}` }))
+        console.log(`${error}`)
     }
 }
 

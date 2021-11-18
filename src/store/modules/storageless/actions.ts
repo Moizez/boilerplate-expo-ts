@@ -1,5 +1,5 @@
 import types from "./types";
-import { TActionStorageless, TStorageless } from "../../../utils/types";
+import { TActionStorageless, TAlert, TStorageless } from "../../../utils/types";
 
 
 export function setReducer(payload: TStorageless, key: string): TActionStorageless {
@@ -10,7 +10,7 @@ export function setReducer(payload: TStorageless, key: string): TActionStoragele
     }
 }
 
-export function openAlert(message: string, color?: string, time?: number): TActionStorageless {
+export function openAlert({ message, color, time }: TAlert): TActionStorageless {
     return {
         type: types.OPEN_ALERT,
         payload: {

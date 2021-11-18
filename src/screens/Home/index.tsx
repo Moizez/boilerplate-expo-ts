@@ -6,12 +6,14 @@ import { requestActivities } from '../../store/modules/storageless/actions';
 import { GlobalState } from '../../utils/types'
 import ActionModal, { modalRef as actionModalRef } from '../../components/Modals/ActionModal';
 
-import { Container, Title, Button, ActivityIndicator, Spacer } from '../../styles'
+import Notification from '../../services/notification';
+
+import { Container, Title, Button, ActivityIndicator, Spacer, Searchbar } from '../../styles'
 
 const Home = () => {
 
     const dispatch = useDispatch()
-    const { profile } = useSelector((state: GlobalState) => state.user)
+    const { profile, loading: loadingProfile } = useSelector((state: GlobalState) => state.user)
     const { activities, loading } = useSelector((state: GlobalState) => state.storageless)
 
     const handleLogOut = () => {
@@ -28,9 +30,16 @@ const Home = () => {
 
     return (
         <>
-            {loading
+            <Notification />
+            {loadingProfile
                 ? <ActivityIndicator />
                 : <Container align='center' justify='center' hasPadding>
+
+                    <Searchbar
+                        value={null}
+                        placeholder='Faça sua busca'
+                    />
+
                     <Title big>{profile?.fullname}</Title>
                     <Button
                         block

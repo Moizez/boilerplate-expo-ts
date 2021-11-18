@@ -1,13 +1,13 @@
 import types from "./types";
 
-export function updateUserRequest(payload: Object) {
+export function updateUserRequest(payload: any) {
     return {
         type: types.USER_UPDATE_REQUEST,
         payload
     }
 }
 
-export function updateUserSuccess(payload: Object) {
+export function updateUserSuccess(payload: any) {
     return {
         type: types.USER_UPDATE_SUCCESS,
         payload

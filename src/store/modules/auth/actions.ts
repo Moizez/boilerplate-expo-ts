@@ -1,20 +1,12 @@
+import { TActionAuth, TSignInSucces } from "../../../utils/types";
 import types from "./types";
 
 export function signInRequest(payload: any) {
-    return {
-        type: types.SIGN_IN_REQUEST,
-        payload: {
-            email: payload.email,
-            password: payload.password
-        }
-    }
+    return { type: types.SIGN_IN_REQUEST, payload }
 }
 
-export function signInSuccess(token: string, user: Object) {
-    return {
-        type: types.SIGN_IN_SUCCESS,
-        payload: { token, user }
-    }
+export function signInSuccess({ token, profile }: TSignInSucces): TActionAuth | any {
+    return { type: types.SIGN_IN_SUCCESS, payload: { token, profile } }
 }
 
 export function signUpRequest(payload: any) {

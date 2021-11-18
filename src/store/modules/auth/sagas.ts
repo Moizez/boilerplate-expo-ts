@@ -8,25 +8,24 @@ import { openAlert } from '../storageless/actions'
 export function* signIn({ payload }) {
 
     try {
-
         const { email, password } = payload
         const response = yield call(api.post, '/login', { email, password })
         const { token, user } = response.data
 
         if (!token) {
             //@ts-ignore
-            yield put(openAlert('Token não identificado!'))
+            yield put(openAlert({ message: 'Token não identificado!' }))
             yield put(signInFailure());
         } else {
             //@ts-ignore
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            yield put(signInSuccess(token, user));
+            yield put(signInSuccess({ token: token, profile: user }));
         }
 
     } catch (error) {
         yield put(signInFailure());
         //@ts-ignore
-        yield put(openAlert(`Erro: ${error}`))
+        yield put(openAlert({ message: `Erro: ${error.message}` }))
         console.log(`Erro: ${error}`)
     }
 }
@@ -55,13 +54,13 @@ export function* signUp({ payload }) {
         } else {
             //@ts-ignore
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            yield put(signInSuccess(token, user));
+            yield put(signInSuccess({ token: token, profile: user }));
         }
 
     } catch (error) {
         yield put(signInFailure());
         //@ts-ignore
-        yield put(openAlert(`Erro: ${error}`))
+        yield put(openAlert({message: `Erro: ${error.message}`}))
         console.log(`Erro: ${error}`)
     }
 }

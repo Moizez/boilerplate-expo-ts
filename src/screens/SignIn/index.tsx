@@ -44,13 +44,13 @@ const SignIn = () => {
                 finalStatus = status;
             }
             if (finalStatus !== 'granted') {
-                dispatch(openAlert('Falha ao obter token push para notificação push!', colors.danger));
+                dispatch(openAlert({ message: 'Falha ao obter token push para notificação push!', color: colors.danger }));
                 return;
             }
             token = (await Notifications.getExpoPushTokenAsync()).data;
-            console.log(token);
+            console.log('Expo Token: ', token);
         } else {
-            dispatch(openAlert('Deve usar dispositivo físico para notificações push', colors.info));
+            dispatch(openAlert({ message: 'Deve usar dispositivo físico para notificações push', color: colors.info }));
         }
 
         if (Platform.OS === 'android') {
@@ -58,7 +58,7 @@ const SignIn = () => {
                 name: 'default',
                 importance: Notifications.AndroidImportance.MAX,
                 vibrationPattern: [0, 250, 250, 250],
-                lightColor: '#FF231F7C',
+                lightColor: '#FF231F7C'
             });
         }
 
@@ -75,7 +75,7 @@ const SignIn = () => {
 
                 <Container align='center' justify='center'>
                     <Title color='secondary'>Boilerplate React Native</Title>
-                    <Text>App de exemplo para novos projetos</Text>
+                    <Text>App exemplo para novos projetos</Text>
 
                 </Container>
 

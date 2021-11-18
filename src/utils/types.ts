@@ -2,7 +2,7 @@ export type GlobalState = {
 	auth: TAuth,
 	user: TUser,
 	storageless: TStorageless
-}
+} 
 
 export type TAuth = {
 	token?: string,
@@ -13,13 +13,18 @@ export type TAuth = {
 
 export type TUser = {
 	profile?: ProfileProps,
-	loading: boolean
+	loading?: boolean
 }
 
 export type TStorageless = {
 	activities?: Array<{}>,
 	alert: TAlert,
 	loading?: boolean
+}
+
+export type TSignInSucces = {
+	token: string,
+	profile: ProfileProps
 }
 
 export type TAlert = {

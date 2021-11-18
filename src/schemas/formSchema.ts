@@ -3,6 +3,8 @@ import { cpf, cnpj } from 'cpf-cnpj-validator';
 
 const initialValuesSignUp = { name: '', cpf: '', phone: '', cep: '', cnpj: '', birthday: '', wallet: '', email: '', password: '', passwordConfirmation: '' }
 const initialValuesSignIn = { email: '', password: '' }
+const initialValuesEditProfile = { name: '' }
+
 
 const signInSchema = yup.object().shape({
   email: yup.string().email('Digite um e-mail válido!').required('O e-mail é obrigatório!'),
@@ -18,7 +20,7 @@ const signUpSchema = yup.object().shape({
     .string()
     .min(3, 'O seu nome deve ter no mínimo 3 caracteres.')
     .required('O nome é obrigatório!'),
-    email: yup.string().email('Digite um e-mail válido!').required('O e-mail é obrigatório!'),
+  email: yup.string().email('Digite um e-mail válido!').required('O e-mail é obrigatório!'),
   password: yup
     .string()
     .min(5, 'A senha deve conter no mínimo 5 caracteres.')
@@ -56,4 +58,15 @@ const signUpSchema = yup.object().shape({
   //   .required('Digite sua data de nascimento')
 });
 
-export { signInSchema, initialValuesSignIn, signUpSchema, initialValuesSignUp }
+const editProfileSchema = yup.object().shape({
+  name: yup
+    .string()
+    .min(3, 'O seu nome deve ter no mínimo 3 caracteres.')
+    .required('O nome é obrigatório!'),
+});
+
+export {
+  signInSchema, initialValuesSignIn,
+  signUpSchema, initialValuesSignUp,
+  editProfileSchema, initialValuesEditProfile
+}

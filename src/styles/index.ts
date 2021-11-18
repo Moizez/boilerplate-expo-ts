@@ -10,12 +10,12 @@ import {
 } from './TStyles'
 
 import {
-  Text as TextPaper,
   Button as ButtonPaper,
   TextInput as TextInputPaper,
   HelperText as HelperTextPaper,
   Snackbar as SnackbarPaper,
-  ActivityIndicator as ActivityIndicatorPaper
+  ActivityIndicator as ActivityIndicatorPaper,
+  Searchbar as SearchbarPaper
 } from 'react-native-paper';
 
 export const Container = styled.View<ContainerProps>`
@@ -195,6 +195,8 @@ export const Spacer = styled.View<SpacerProps>`
   width: ${props => props.vertical ? '25px' : '100%'};
   height: ${props => props.size ? props.size + 'px' : props.vertical ? '100%' : '10px'};
 `;
+
+export const Searchbar = styled(SearchbarPaper)<SpacerProps>``;
 
 export const Modal = styled(Modalize).attrs<ModalProps>(props => ({
   adjustToContentHeight: props.adjustToContentHeight || false,

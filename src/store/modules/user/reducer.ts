@@ -1,20 +1,20 @@
 import produce from "immer";
 import types from "./types";
-import { TUser } from '../../../utils/types'
+import { TActionUser, TUser } from '../../../utils/types'
 
 const INITIAL_STATE: TUser = {
-    //@ts-ignore
     profile: {},
-    loading: false
+    loading: true
 }
 
-function user(state = INITIAL_STATE, action: any) {
+function user(state = INITIAL_STATE, action: TActionUser) {
 
     return produce(state, draft => {
 
         switch (action.type) {
             case types.SIGN_IN_SUCCESS: {
-                draft.profile = { ...state.profile, ...action.payload.user }
+                draft.profile = { ...state.profile, ...action.payload.profile }
+                draft.loading = false
                 return draft
             }
 
@@ -24,7 +24,7 @@ function user(state = INITIAL_STATE, action: any) {
             }
 
             case types.USER_UPDATE_SUCCESS: {
-                draft.profile = { ...state.profile, ...action.payload.user }
+                draft.profile = { ...state.profile, ...action.payload.profile }
                 draft.loading = false
                 return draft
             }

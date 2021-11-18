@@ -26,12 +26,7 @@ function storageless(state = INITIAL_STATE, action: TActionStorageless) {
             }
 
             case types.OPEN_ALERT: {
-                draft.alert = {
-                    message: action.payload.alert.message,
-                    color: action.payload.alert.color,
-                    time: action.payload.alert.time,
-                    visible: true
-                }
+                draft.alert = { ...state.alert, ...action.payload.alert, visible: true }
                 return draft
             }
 
