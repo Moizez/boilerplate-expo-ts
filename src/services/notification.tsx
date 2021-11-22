@@ -35,7 +35,7 @@ const Notification = () => {
 	return (
 		<View
 			style={{
-				flex: 1,
+				marginTop: 50,
 				alignItems: 'center',
 				justifyContent: 'space-around',
 			}}>

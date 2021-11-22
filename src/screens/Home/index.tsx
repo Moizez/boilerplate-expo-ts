@@ -40,6 +40,8 @@ const Home = () => {
                         placeholder='Faça sua busca'
                     />
 
+                    <Spacer size={50}/>
+
                     <Title big>{profile?.fullname}</Title>
                     <Button
                         block
